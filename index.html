@@ -1,0 +1,86 @@
+<<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Online Untraceable Form</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="contact-container">
+    <form id="contact-form" class="contact-left">
+      <div class="contact-left-title">
+        <h2><b>Welcome To Central Library</b></h2>
+        <h2><b><u>Online Untraceable Form</u></b></h2>
+        <hr>
+      </div>
+      <input type="hidden" name="access_key" value="d0cf8c50-b7c9-4f1a-a648-1baef5f38e46">
+      <input type="text" name="Request Date" placeholder="Request DD-MM-YR" class="contact-inputs" required>
+      <input type="text" name="Name" placeholder="Name" class="contact-inputs" required>
+      <input type="email" name="Email Id" placeholder="Email Id" class="contact-inputs" required>
+      <input type="text" name="Book Title" placeholder="Book Title" class="contact-inputs" required>
+      <input type="text" name="Call Number" placeholder="Call Number" class="contact-inputs" required>
+      <input type="text" name="Item Barcode" placeholder="Item Barcode" class="contact-inputs" required>
+      <button type="submit">Submit</button>
+    </form>
+  </div>
+
+  <!-- Moved message box outside the flex container -->
+  <div id="message-box" class="message-box"></div>
+
+  <script>
+    const form = document.getElementById("contact-form");
+    const messageBox = document.getElementById("message-box");
+
+    form.addEventListener("submit", function (event) {
+      event.preventDefault(); // Prevent default form submission
+      const formData = new FormData(form);
+      const userName = formData.get("Name");
+
+      // Optimistic UI: Show thank-you message immediately
+      messageBox.style.display = 'block';
+      messageBox.innerHTML = `<p>Thank you, ${userName}! 😊 Your form has been submitted successfully.</p>`;
+      messageBox.style.backgroundColor = "#28a745";
+      messageBox.style.color = "white";
+
+      // Convert form data to JSON for the first API call
+      let jsonData = {};
+      formData.forEach((value, key) => {
+        jsonData[key] = value;
+      });
+
+      // First API call: Store data in SheetDB
+      fetch("https://sheetdb.io/api/v1/9xjcgpzirslcv", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({ data: [jsonData] })
+      })
+      .then(response => response.json())
+      .then(() => {
+        // Second API call: Send email notification via Web3Forms
+        return fetch("https://api.web3forms.com/submit", {
+          method: "POST",
+          body: formData
+        });
+      })
+      .then(response => response.json())
+      .then(() => {
+        form.reset();
+        // Hide the message after 5 seconds
+        setTimeout(() => {
+          messageBox.innerHTML = "";
+          messageBox.style.display = 'none';
+        }, 5000);
+      })
+      .catch(() => {
+        // If errors occur, display an error message
+        messageBox.innerHTML = "<p>Oops! Something went wrong. Please try again.</p>";
+        messageBox.style.backgroundColor = "#dc3545";
+        messageBox.style.color = "white";
+      });
+    });
+  </script>
+</body>
+</html>

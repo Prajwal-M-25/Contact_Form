@@ -1,0 +1,106 @@
+/* Ensure the body and container take full height of the viewport */
+body, .contact-container {
+    margin: 0;
+    padding: 0;
+    height: 100vh; /* Full height of the viewport */
+    display: flex;
+    justify-content: center;
+    align-items: center; /* Centers content vertically */
+    background-image: url('wallpaperflare.com_wallpaper.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+  }
+  
+  /* Styling for the form container */
+  .contact-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 8px;
+    box-sizing: border-box;
+    width: 100%;
+  }
+  
+  /* Styling for the left form section */
+  .contact-left {
+    width: 100%;
+    max-width: 400px; /* Set a max-width for larger screens */
+    background-color: #f4f4f9; /* New color for form box */
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+    margin: 10px;
+  }
+  
+  /* Styling for the title */
+  .contact-left-title h2 {
+    text-align: center;
+    font-size: 24px;
+    color: #333;
+  }
+  
+  .contact-inputs {
+    width: 100%;
+    padding: 5px;
+    margin: 15px 0;
+    border-radius: 3px;
+    border: 1px solid #ddd;
+    font-size: 16px;
+  }
+  
+  .contact-inputs:focus {
+    border-color: #4CAF50;
+  }
+  
+  /* Styling for the submit button */
+  button {
+    width: 100%;
+    padding: 12px;
+    background-color: #007BFF;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s ease;
+  }
+  
+  button:hover {
+    background-color: #0056b3;
+  }
+  
+  /* Styling for the message box */
+  .message-box {
+    position: fixed;
+    bottom: 20px; /* Adjust spacing from the bottom */
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: #28a745;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 12px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+    display: none;
+    z-index: 1000; /* Ensure it stays on top */
+  }
+  
+  /* Optional: Styling for the right-side section (currently not used for image) */
+  .contact-right {
+    display: none;
+  }
+  
+  /* Media Query for Mobile Devices */
+  @media screen and (max-width: 768px) {
+    .contact-left {
+      width: 90%;
+      padding: 15px;
+    }
+    .contact-inputs {
+      font-size: 14px;
+    }
+    button {
+      font-size: 14px;
+    }
+  }
+  

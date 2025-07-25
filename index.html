@@ -60,8 +60,7 @@
       .then(response => response.json())
       .then(() => {
         // Second API call: Send email notification via Web3Forms
-        return fetch("https://api.web3forms.com/submit", {
-          method: "POST",
+        return fetch("https://api.web3forms.com/submit" method="POST", {
           body: formData
         });
       })

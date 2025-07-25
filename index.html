@@ -50,7 +50,7 @@
       });
 
       // First API call: Store data in SheetDB
-      fetch("google sheet link", {
+      fetch("https://sheetdb.io/api/v1/9xjcgpzirslcv", {
         method: "POST",
         headers: {
           "Content-Type": "application/json"
@@ -60,7 +60,7 @@
       .then(response => response.json())
       .then(() => {
         // Second API call: Send email notification via Web3Forms
-        return fetch("web3forrm link/submit", {
+        return fetch("https://api.web3forms.com/submit", {
           method: "POST",
           body: formData
         });

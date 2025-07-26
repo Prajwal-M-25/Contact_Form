@@ -1,4 +1,4 @@
-<<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
@@ -6,7 +6,7 @@
   <title>Online Untraceable Form</title>
   <link rel="stylesheet" href="style.css">
 </head>
-<body>
+<body>           
   <div class="contact-container">
     <form id="contact-form" class="contact-left">
       <div class="contact-left-title">
@@ -14,7 +14,7 @@
         <h2><b><u>Online Untraceable Form</u></b></h2>
         <hr>
       </div>
-      <input type="hidden" name="access_key" value="328db509-593c-45df-8586-fabeab70f2a4">
+      <input type="hidden" name="access_key" value="">
       <input type="text" name="Request Date" placeholder="Request DD-MM-YR" class="contact-inputs" required>
       <input type="text" name="Name" placeholder="Name" class="contact-inputs" required>
       <input type="email" name="Email Id" placeholder="Email Id" class="contact-inputs" required>
@@ -60,8 +60,12 @@
       .then(response => response.json())
       .then(() => {
         // Second API call: Send email notification via Web3Forms
-        return fetch("https://api.web3forms.com/submit" method="POST", {
-          body: formData
+        return fetch("https://api.web3forms.com/submit", {
+          method: "POST", // Corrected this
+          body: new URLSearchParams(formData).toString(), // Use URLSearchParams to properly format the form data
+          headers: {
+            "Content-Type": "application/x-www-form-urlencoded"
+          }
         });
       })
       .then(response => response.json())
@@ -83,3 +87,4 @@
   </script>
 </body>
 </html>
+
